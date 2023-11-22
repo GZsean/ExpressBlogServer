@@ -14,8 +14,8 @@ const ArticleController = {
 
   createArticle: async (req, res) => {
     try {
-      const newArticle = await Article.create(req.body);
-      // res.status(201).json({ code: 200, msg: "success" });
+      await Article.create(req.body);
+
       sendResponse(res, 200, "success");
     } catch (err) {
       sendResponse(res, 400, err.message);
@@ -24,8 +24,8 @@ const ArticleController = {
 
   getArticleById: async (req, res) => {
     try {
-      const Article = await Article.findById(req.params.id);
-      sendResponse(res, 200, "Success", Article);
+      const ArticleTarget = await Article.findById(req.params.id);
+      sendResponse(res, 200, "Success", ArticleTarget);
     } catch (err) {
       sendResponse(res, 400, err.message);
     }
@@ -33,11 +33,7 @@ const ArticleController = {
 
   updateArticleById: async (req, res) => {
     try {
-      const updatedArticle = await Article.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true },
-      );
+      await Article.findByIdAndUpdate(req.params.id, req.body, { new: true });
       sendResponse(res, 200, "updated");
     } catch (err) {
       sendResponse(res, 400, err.message);
