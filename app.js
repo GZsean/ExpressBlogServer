@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const databaseConfig = require("./config/config");
 
 const articleRouter = require("./routes/article");
+const userRouter = require("./routes/user");
 const { recordMiddleware } = require("./middleware/recordMiddleware");
 
 let app = express();
@@ -29,6 +30,7 @@ app.use(lessMiddleware(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(recordMiddleware);
 
+app.use("/", userRouter);
 app.use("/article", articleRouter);
 
 // catch 404 and forward to error handler
